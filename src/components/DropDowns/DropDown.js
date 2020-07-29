@@ -17,14 +17,14 @@ const dropDown = (props) => (
         </div>
         <div className="dropdown-menu" id="dropdown-menu" role="menu">
             <div className="dropdown-content">
-                <button onClick={props.userJobsModalOpenHandler} style={{border: "none"}} className="button dropdown-item">
+                <button onClick={() => props.userJobsModalOpenHandler('')} style={{border: "none"}} className="button dropdown-item">
                     Saved/Applied Jobs
                 </button>
-                <button style={{border: "none"}} className="button dropdown-item">
-                Active dropdown item
+                <button onClick={() => props.userJobsModalOpenHandler('saved')} style={{border: "none"}} className="button dropdown-item">
+                    Saved
                 </button>
-                <button style={{border: "none"}} className="button dropdown-item">
-                Other dropdown item
+                <button onClick={() => props.userJobsModalOpenHandler('applied')} style={{border: "none"}} className="button dropdown-item">
+                    Applied
                 </button>
                 <hr className="dropdown-divider" />
                 <button onClick={props.logoutHandler} style={{border: "none"}} className="button dropdown-item">

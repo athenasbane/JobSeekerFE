@@ -10,6 +10,7 @@ import Header from '../../components/Header/Header';
 import JobDropDown from '../../components/DropDowns/JobDropDown';
 import UserJobsModal from '../../components/Modals/UserJobs';
 import About from '../../components/Modals/About';
+import SearchError from '../../components/Modals/SearchError';
 
 class Board extends Component {
     
@@ -20,6 +21,8 @@ class Board extends Component {
         searchLocation: '',
         searchTimeScale: '',
         searchRadius: '',
+        searchErrorModalOpen: false,
+        searchError: '',
         userAuthed: false,
         userDropDown: false,
         userJobsModalOpen: false,
@@ -73,13 +76,27 @@ class Board extends Component {
     searchSubmitHandler = (e) => {
         e.preventDefault();
 
+        if(this.state.searchTitle === '' || this.state.searchLocation === '') {
+            this.setState({ searchError: 'Please complete all fields', 
+            searchErrorModalOpen: !this.state.searchErrorModalOpen });
+            return;
+        }
+
+        if(this.state.searchTitle.includes(' ') || this.state.searchLocation.includes(' ')) {
+            this.setState({ searchError: 'The search function only supports single words for now', 
+            searchErrorModalOpen: !this.state.searchErrorModalOpen });
+            return;
+        }
+
         const boardReset = {
             indeed: false,
             reed: false,
             monster: false,
             cvlibrary: false
         }
-        this.setState({ loading: true });
+        this.setState({ loading: true, 
+            searchErrorModalOpen: false,
+            searchError: ''});
         axios.post('http://localhost:4000/jobs', {
             title: this.state.searchTitle,
             location: this.state.searchLocation,
@@ -93,6 +110,10 @@ class Board extends Component {
         }).catch(e => {
             console.log(e);
         });
+    }
+
+    searchErrorModalOpenHandler = () => {
+        this.setState({ searchErrorModalOpen: !this.state.searchErrorModalOpen })
     }
 
     updateJobsSearch = () => {
@@ -272,17 +293,26 @@ class Board extends Component {
     
     }
 
-    userJobsModalOpenHandler = () => {
-        axios.get('http://localhost:4000/users/jobs', 
+    userJobsModalOpenHandler = (arg) => {
+        
+        let query = '';
+
+        if (arg === 'applied') {
+            query = '?applied=true';
+        } else if (arg === 'saved') {
+            query = '?applied=false';
+        }
+
+        axios.get(`http://localhost:4000/users/jobs${query}`, 
         { headers: {Authorization: `Bearer ${this.state.token}`} })
         .then(response => {
             this.setState({ savedJobs: response.data })
         })
         .catch(e => {
             console.log(e)
-        })
+        });
 
-        this.setState({ userJobsModalOpen: !this.state.userJobsModalOpen })
+        this.setState({ userJobsModalOpen: !this.state.userJobsModalOpen });
     }
 
     jobDropDownClickHandler = (index) => {
@@ -446,6 +476,11 @@ class Board extends Component {
                     aboutModalOpen={this.state.aboutModalOpen}
                     aboutModalOpenHandler={this.aboutModalOpenHandler}
                 
+                />
+                <SearchError 
+                    searchErrorModalOpen={this.state.searchErrorModalOpen}
+                    searchErrorModalOpenHandler={this.searchErrorModalOpenHandler}
+                    searchError={this.state.searchError}
                 />
                 <div className="box is-centered">
                     <table className="table" style={{ width: "100%" }}>

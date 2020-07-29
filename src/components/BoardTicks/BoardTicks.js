@@ -1,38 +1,53 @@
 import React from 'react';
 
+import circle from '../../assets/img/circle.png';
+import tick from '../../assets/img/tick.svg';
+
 const BoardTicks = (props) => (
     <div style={{width: "100%"}}>
         <div className="columns">
             <div className="column is-one-quarter">
                 <div style={{width: "100%"}} className="tags has-addons is-centered">
                     <span style={{width: "60%"}} className="tag is-medium">Indeed</span>
-                    <span className={props.boards.indeed ? "tag is-medium is-success" : "tag is-medium is-info"}>
-                        <i className={props.boards.indeed ? "fa fa-check-circle" : "fa fa-bullseye"} aria-hidden="true"></i>
-                    </span>
+                    {props.boards.indeed ? <span className={"tag is-medium is-success"}>
+                        <img style={{maxWidth: "20px"}} src={tick} alt="tick" />
+                    </span> : 
+                    <span className={"tag is-medium is-info"}>
+                        <img style={{maxWidth: "20px"}} src={circle} alt="circle" />
+                    </span>}
                 </div>
             </div>
             <div className="column is-one-quarter">
                 <div style={{width: "100%"}} className="tags has-addons is-centered">
                     <span style={{width: "60%"}} className="tag is-medium">Reed</span>
-                    <span className={props.boards.reed ? "tag is-medium is-success" : "tag is-medium is-info"}>
-                        <i className={props.boards.reed ? "fa fa-check-circle" : "fa fa-bullseye"} aria-hidden="true"></i>
-                    </span>
+                    {props.boards.reed ? <span className={"tag is-medium is-success"}>
+                        <img style={{maxWidth: "20px"}} src={tick} alt="tick" />
+                    </span> : 
+                    <span className={"tag is-medium is-info"}>
+                        <img style={{maxWidth: "20px"}} src={circle} alt="circle" />
+                    </span>}
                 </div>
             </div>
             <div className="column is-one-quarter">
                 <div style={{width: "100%"}} className="tags has-addons is-centered">
                     <span style={{width: "60%"}} className="tag is-medium">CV Library</span>
-                    <span className={props.boards.cvlibrary ? "tag is-medium is-success" : "tag is-medium is-info"}>
-                        <i className={props.boards.cvlibrary ? "fa fa-check-circle" : "fa fa-bullseye" } aria-hidden="true"></i>
-                    </span>
+                    {props.boards.cvlibrary ? <span className={"tag is-medium is-success"}>
+                        <img style={{maxWidth: "20px"}} src={tick} alt="tick" />
+                    </span> : 
+                    <span className={"tag is-medium is-info"}>
+                        <img style={{maxWidth: "20px"}} src={circle} alt="circle" />
+                    </span>}
                 </div>
             </div>
             <div className="column is-one-quarter">
                 <div style={{width: "100%"}} className="tags has-addons is-centered">
                     <span style={{width: "60%"}} className="tag is-medium">Monster</span>
-                    <span className={props.boards.monster ? "tag is-medium is-success" : "tag is-medium is-info"}>
-                        <i className={props.boards.monster ? "fa fa-check-circle" : "fa fa-bullseye"} aria-hidden="true"></i>
-                    </span>
+                    {props.boards.monster ? <span className={"tag is-medium is-success"}>
+                        <img style={{maxWidth: "20px"}} src={tick} alt="tick" />
+                    </span> : 
+                    <span className={"tag is-medium is-info"}>
+                        <img style={{maxWidth: "20px"}} src={circle} alt="circle" />
+                    </span>}
                 </div>
             </div>       
         </div>
