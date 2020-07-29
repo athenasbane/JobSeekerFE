@@ -97,7 +97,7 @@ class Board extends Component {
         this.setState({ loading: true, 
             searchErrorModalOpen: false,
             searchError: ''});
-        axios.post('http://localhost:4000/jobs', {
+        axios.post('https://jobseeker-backend.herokuapp.com/jobs', {
             title: this.state.searchTitle,
             location: this.state.searchLocation,
             radius: this.state.searchRadius,
@@ -117,7 +117,7 @@ class Board extends Component {
     }
 
     updateJobsSearch = () => {
-        axios.get(`http://localhost:4000/jobs/more/${this.state.searchId}`)
+        axios.get(`https://jobseeker-backend.herokuapp.com/jobs/more/${this.state.searchId}`)
         .then(response => {
             
             const data = [ ...response.data.jobs ]
@@ -167,7 +167,7 @@ class Board extends Component {
             return;
         }
 
-        axios.post('http://localhost:4000/users/login', {
+        axios.post('https://jobseeker-backend.herokuapp.com/users/login', {
             email,
             password
         })
@@ -192,7 +192,7 @@ class Board extends Component {
     }
 
     logoutHandler = () => {
-        axios.post('http://localhost:4000/users/logout', {
+        axios.post('https://jobseeker-backend.herokuapp.com/users/logout', {
             user: this.state.user }, 
             {headers: {Authorization: `Bearer ${this.state.token}`}})
         .then(response => {
@@ -239,7 +239,7 @@ class Board extends Component {
             return
         } 
 
-        axios.post('http://localhost:4000/users/register', {
+        axios.post('https://jobseeker-backend.herokuapp.com/users/register', {
             email,
             password
         })
@@ -268,7 +268,7 @@ class Board extends Component {
             return;
         }
         
-        axios.post('http://localhost:4000/users/auth', {
+        axios.post('https://jobseeker-backend.herokuapp.com/users/auth', {
             token: localStorage.getItem('token')
         })
         .then(response => {
@@ -303,7 +303,7 @@ class Board extends Component {
             query = '?applied=false';
         }
 
-        axios.get(`http://localhost:4000/users/jobs${query}`, 
+        axios.get(`https://jobseeker-backend.herokuapp.com/users/jobs${query}`, 
         { headers: {Authorization: `Bearer ${this.state.token}`} })
         .then(response => {
             this.setState({ savedJobs: response.data })
@@ -324,7 +324,7 @@ class Board extends Component {
     }
 
     jobSavedClickHandler = (index) => {
-        axios.post('http://localhost:4000/users/jobs/save', 
+        axios.post('https://jobseeker-backend.herokuapp.com/users/jobs/save', 
         { job: this.state.jobs[index] }, 
         { headers: {Authorization: `Bearer ${this.state.token}`} })
         .then(response => console.log('Test'))
@@ -337,7 +337,7 @@ class Board extends Component {
 
         job.applied = true;
         
-        axios.post('http://localhost:4000/users/jobs/save', 
+        axios.post('https://jobseeker-backend.herokuapp.com/users/jobs/save', 
         { job, }, 
         { headers: {Authorization: `Bearer ${this.state.token}`} })
         .then(response => console.log('Test'))
@@ -347,7 +347,7 @@ class Board extends Component {
 
     componentDidMount() {
         this.sessionCheck()
-        const socket = socketIOClient('http://localhost:4000');
+        const socket = socketIOClient('https://jobseeker-backend.herokuapp.com');
         socket.on('connect', () => {
         socket.on('message', (msg) => {
             let boardState = { ...this.state.boards };
