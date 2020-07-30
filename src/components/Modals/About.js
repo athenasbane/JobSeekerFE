@@ -33,18 +33,23 @@ const about = (props) => (
                             <li>Adding custom jobs.</li>
                             <li>Additional job boards to be added.</li>
                             <li>Chrome extension for adding job boards and maybe even auto tracking applications (no promises).</li>
-                            <li>Statics for application wait times to keep track of chasing / result of applications I.e. Interviews etc.</li>
+                            <li>Statics for application wait times to keep track of chasing / result of applications i.e. Interviews etc.</li>
                         </ol>
                     </div>
                     <h2 className="title is-4">How Was This Built?</h2>
                     <p className="content">
-                        MERN stack: (MongoDB, Express.js, React.js, Node.js) 
+                        <strong>MERN Stack:</strong> (MongoDB, Express.js, React.js, Node.js) 
                     </p>
                     <p className="content">
-                        GitHub Repo Any help is greatly appreciated!
+                        <strong>GitHub Repos:</strong> 
                     </p>
                     <p className="content">
-                        Contact: enquires@artemis.works 
+                        <a href="https://github.com/athenasbane/JobseekerAppBE">API </a>
+                        | 
+                        <a href="https://github.com/athenasbane/JobSeekerFE"> React</a>
+                    </p>
+                    <p className="content">
+                        <strong>Contact:</strong> enquires@artemis.works 
                     </p>
                     <p className="content">
                         I hope you enjoy the site!
