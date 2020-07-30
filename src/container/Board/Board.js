@@ -352,8 +352,10 @@ class Board extends Component {
     backDropCloseClickHandler = () => {
 
         if(this.state.jobs.length !== 0) {
-            const newJobs = this.state.jobs.forEach(job => job['action'] = false)
-            console.log(newJobs)
+            const currentJobState = [ ...this.state.jobs];
+            currentJobState.forEach(job => job['action'] = false);
+            this.setState({ jobs: currentJobState });
+            return;
         }
 
         this.setState({ 
