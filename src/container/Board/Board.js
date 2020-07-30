@@ -11,6 +11,7 @@ import JobDropDown from '../../components/DropDowns/JobDropDown';
 import UserJobsModal from '../../components/Modals/UserJobs';
 import About from '../../components/Modals/About';
 import SearchError from '../../components/Modals/SearchError';
+import BackDrop from '../../components/DropDowns/BackDrop';
 
 class Board extends Component {
     
@@ -25,6 +26,7 @@ class Board extends Component {
         searchError: '',
         userAuthed: false,
         userDropDown: false,
+        backDropOpen: false,
         userJobsModalOpen: false,
         loginOpen: false,
         loginNotRegister: true,
@@ -289,7 +291,9 @@ class Board extends Component {
 
     userDropDownHandler = () => {
         let newState = !this.state.userDropDown;
-        this.setState({ userDropDown: newState });
+        this.setState({ userDropDown: newState, 
+        backDropOpen: !this.state.backDropOpen
+        });
     
     }
 
@@ -320,7 +324,7 @@ class Board extends Component {
 
         currentJobs[index]['action'] = !currentJobs[index]['action'];
 
-        this.setState({ jobs: currentJobs })
+        this.setState({ jobs: currentJobs, backDropOpen: !this.state.backDropOpen })
     }
 
     jobSavedClickHandler = (index) => {
@@ -343,6 +347,19 @@ class Board extends Component {
         .then(response => console.log('Test'))
         .catch(e => console.log(e));
         
+    }
+
+    backDropCloseClickHandler = () => {
+
+        if(this.state.jobs.length !== 0) {
+            const newJobs = this.state.jobs.forEach(job => job['action'] = false)
+            console.log(newJobs)
+        }
+
+        this.setState({ 
+            userDropDown: false, 
+            backDropOpen: false,
+            })
     }
 
     componentDidMount() {
@@ -406,9 +423,9 @@ class Board extends Component {
                         rel="noopener noreferrer"
                         style={{maxWidth: "25%", overflow: "wrap", color: "black"}} 
                         href={el.link}>{el.title}</a></strong></td>
-                    <td>{el.company}</td>
-                    <td>{el.location}</td>
-                    <td>{el.source}</td>
+                    <td style={{overflow: "wrap"}}>{el.company}</td>
+                    <td className="is-hidden-mobile">{el.location}</td>
+                    <td className="is-hidden-mobile">{el.source}</td>
                     {this.state.userAuthed ? <td><JobDropDown
 
                     jobSavedClickHandler={this.jobSavedClickHandler}
@@ -482,21 +499,30 @@ class Board extends Component {
                     searchErrorModalOpenHandler={this.searchErrorModalOpenHandler}
                     searchError={this.state.searchError}
                 />
-                <div className="box is-centered">
-                    <table className="table" style={{ width: "100%" }}>
-                        <thead>
-                            <tr>
-                                <th>Title</th>
-                                <th>Company</th>
-                                <th>Location</th>
-                                <th>Source</th>
-                                {this.state.userAuthed ? <th>Action</th> : null}
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {tableResults}
-                        </tbody>
-                    </table>
+
+                <BackDrop 
+                    backDropCloseClickHandler={this.backDropCloseClickHandler}
+                    backDropOpen={this.state.backDropOpen}
+                /> 
+
+                <div style={{ width: "100%" }} className="box is-centered">
+                    <div style={{ width: "100%" }} className="table-container">
+                        <table className="table is-narrow" style={{ width: "100%", marginBottom: "100px" }}>
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Company</th>
+                                    <th className="is-hidden-mobile">Location</th>
+                                    <th className="is-hidden-mobile">Source</th>
+                                    {this.state.userAuthed ? <th>Action</th> : null}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {tableResults}
+                            </tbody>
+                        </table>
+                    </div>
+                    
                 </div>
             </div>
         );

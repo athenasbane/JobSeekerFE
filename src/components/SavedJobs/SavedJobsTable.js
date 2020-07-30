@@ -10,8 +10,8 @@ const saveJobTable = (props) => {
             <td><strong><a href={props.link} target="_blank" rel="noopener noreferrer">{job.title}</a></strong></td>
             <td>{job.company}</td>
             <td>{job.location}</td>
-            <td>{job.source}</td>
-            <td>{job.applied ? <button 
+            <td className="is-hidden-mobile">{job.source}</td>
+            <td className="is-hidden-mobile">{job.applied ? <button 
                 className="button">Applied</button> : 
                 <button className="button">Saved</button>}</td>
         </tr>
@@ -26,8 +26,8 @@ const saveJobTable = (props) => {
                     <th>Title</th>
                     <th>Company</th>
                     <th>Location</th>
-                    <th>Source</th>
-                    <th>Status</th>
+                    <th className="is-hidden-mobile">Source</th>
+                    <th className="is-hidden-mobile">Status</th>
                 </tr>
             </thead>
             <tbody>

@@ -21,12 +21,7 @@ const jobDropDown = (props) => (
                 <button onClick={() => props.jobAppliedClickHandler(props.job.index)} style={{border: "none"}} className="button dropdown-item">
                 Applied
                 </button>
-                {/* <button style={{border: "none"}} className="button dropdown-item">
-                Active dropdown item
-                </button>
-                <button style={{border: "none"}} className="button dropdown-item">
-                Other dropdown item
-                </button> */}
+                
             </div>
         </div>
     </div>

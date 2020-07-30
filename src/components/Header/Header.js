@@ -10,7 +10,7 @@ const Header = (props) => (
         <div className="columns">
             <div className="column is-one-third">
                 <div className="box" style={{height: "100%"}}>
-                    <h1 className="title is-1">Job Searcher</h1>
+                    <h1 className="title is-1">JobSeeker</h1>
                     <p className="subtitle is-5">Simplify your job search</p>
                     <div className="columns">
                         <div style={{ width: "100%" }} className="column is-one-half">
