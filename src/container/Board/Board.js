@@ -331,7 +331,8 @@ class Board extends Component {
         axios.post('https://jobseeker-backend.herokuapp.com/users/jobs/save', 
         { job: this.state.jobs[index] }, 
         { headers: {Authorization: `Bearer ${this.state.token}`} })
-        .then(response => console.log('Test'))
+        .then(response => 
+            this.backDropCloseClickHandler())
         .catch(e => console.log(e));
     }
 
@@ -344,7 +345,8 @@ class Board extends Component {
         axios.post('https://jobseeker-backend.herokuapp.com/users/jobs/save', 
         { job, }, 
         { headers: {Authorization: `Bearer ${this.state.token}`} })
-        .then(response => console.log('Test'))
+        .then(response => 
+            this.backDropCloseClickHandler())
         .catch(e => console.log(e));
         
     }
@@ -354,7 +356,7 @@ class Board extends Component {
         if(this.state.jobs.length !== 0) {
             const currentJobState = [ ...this.state.jobs];
             currentJobState.forEach(job => job['action'] = false);
-            this.setState({ jobs: currentJobState });
+            this.setState({ jobs: currentJobState, backDropOpen: false });
             return;
         }
 
