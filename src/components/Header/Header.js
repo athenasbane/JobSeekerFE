@@ -61,7 +61,7 @@ const Header = (props) => (
                 </div>
                     </div>
                     <div className="column is-two-fifths ml-0-mobile mr-0-mobile">
-                        <div className="box  ml-0-mobile mr-0-mobile">
+                        <div  style={{width: "100%", height: "100%"}} className="box ml-0-mobile mr-0-mobile">
                             <BoardTicks 
                                 boards={props.boards}
                             />

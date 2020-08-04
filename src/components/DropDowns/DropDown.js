@@ -1,7 +1,7 @@
 import React from 'react';
 
 const dropDown = (props) => (
-    <div style={{ width: "100%" }} className={props.userDropDown ? "dropdown is-active" : "dropdown"}>
+    <div style={{ width: "100%" }} className={props.userDropDown ? "dropdown is-active mb-1" : "dropdown mb-1"}>
         <div style={{ width: "100%" }}  className="dropdown-trigger">
             <button 
                 style={{ width: "100%" }}

@@ -9,6 +9,11 @@ const addJob = (props) => (
                     <button onClick={props.addJobModalOpenHandler} className="delete" aria-label="close"></button>
                 </header>
                 <section className="modal-card-body">
+                    {props.featureBannerOpen ? 
+                    (<div className="notification is-danger">
+                        <button onClick={props.featureBannerDeleteHandler} className="delete"></button>
+                        <strong>Sorry!</strong> I'm working on this feature! Please bear with me. 
+                    </div>) : null}
                     <form
                         onSubmit={props.addJobSubmitHandler} 
                         className="form">

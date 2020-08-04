@@ -26,6 +26,7 @@ class Board extends Component {
         addJobStatus: 'saved',
         addJobLink: '',
         mobileBannerOpen: true,
+        featureBannerOpen: true,
         searchId: '',
         searchTitle: '',
         searchLocation: '',
@@ -69,6 +70,10 @@ class Board extends Component {
 
     mobileBannerDeleteButtonHandler = () => {
         this.setState({ mobileBannerOpen: false });
+    }
+
+    featureBannerDeleteHandler = () => {
+        this.setState({ featureBannerOpen: false });
     }
 
     // About
@@ -509,7 +514,7 @@ class Board extends Component {
         }
 
         return (
-            <div className="is-centered ml-0 mr-0">
+            <div>
                 <section className={this.state.heroOpen ? "hero is-small is-primary is-bold is-hidden-mobile" : "hero is-small is-primary is-bold is-hidden is-hidden-mobile"}>
                     <div className="hero-body">
                         <div className="level">
@@ -645,6 +650,8 @@ class Board extends Component {
                     addJobLinkChangeHandler={this.addJobLinkChangeHandler}
                     addJobLink={this.state.addJobLink}
 
+                    featureBannerDeleteHandler={this.featureBannerDeleteHandler}
+                    featureBannerOpen={this.state.featureBannerOpen}
 
                 />
 
@@ -660,7 +667,7 @@ class Board extends Component {
                 /> 
 
                 <div className={this.state.mobileBannerOpen ? "notification is-info is-hidden-desktop" : "notification is-info is-hidden"}>
-                <button onClick={this.mobileBannerDeleteButtonHandler} className="delete"></button>
+                    <button onClick={this.mobileBannerDeleteButtonHandler} className="delete"></button>
                     <strong>Just a warning!</strong> Job Seeker's functionality is limited due to space on smaller screens. 
                     You can request the full site or access on your desktop to get the full experience.
                 </div>

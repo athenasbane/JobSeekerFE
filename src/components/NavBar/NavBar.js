@@ -4,9 +4,9 @@ import DropDown from '../DropDowns/DropDown';
 import logo from '../../assets/img/logo.png';
 
 const navBar = (props) => (
-    <nav className="navbar is-light mb-3 mt-2" role="navigation" aria-label="main navigation">
+    <nav className="navbar is-light mb-3" role="navigation" aria-label="main navigation">
         <div className="navbar-start">
-            <div className="columns multiline is-mobile">
+            <div className="columns multiline is-mobile mt-1">
                 <div className="column is-3">
                     <figure style={{justifyContent: "center"}} className="image is-centered is-96x96">
                         <img className="mb-3" src={logo} alt="logo" />
@@ -22,7 +22,7 @@ const navBar = (props) => (
         </div>
         <div className="navbar-end">
             <div className="navbar-item">
-                <div className="buttons is-centered">
+                <div className="is-centered">
                     {props.userAuthed ? (
                         <DropDown 
                             addJobModalOpenHandler={props.addJobModalOpenHandler}
@@ -40,7 +40,7 @@ const navBar = (props) => (
                     <button  
                         onClick={props.loginModalOpenHandler} 
                         style={{width: "100%"}} 
-                        className={"button is-primary "}
+                        className={"button is-primary mb-1"}
                     >Login</button>)}
                     <button 
                         style={{width: "100%"}} 

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import logo from '../../assets/img/logo.png';
+
 const about = (props) => (
     <div className={props.aboutModalOpen ? "modal is-active" : "modal"}>
         <div onClick={props.aboutModalOpenHandler} className="modal-background"></div>
@@ -9,7 +11,20 @@ const about = (props) => (
                     <button onClick={props.aboutModalOpenHandler} className="delete" aria-label="close"></button>
                 </header>
                 <section className="modal-card-body">
-                    <h2 className="title is-4">Why did I make this?</h2>
+                <div className="columns multiline is-mobile mt-1">
+                    <div className="column is-2">
+                        <figure style={{justifyContent: "center"}} className="image is-centered is-96x96 is-square-mobile">
+                            <img className="mb-3" src={logo} alt="logo" />
+                        </figure>
+                    </div>
+                    <div className="column is-10 is-hidden-mobile">
+                        <div style={{borderLeft: "3px solid black"}} >
+                            <h1 className="title is-1 ml-3 is-size-5-mobile">Job Seeker</h1>
+                            <p className="subtitle is-5 ml-3 is-size-7-mobile">Simplify your job search</p>
+                        </div>
+                    </div>
+            </div>
+                    <h2 className="title is-4">Why did you make this?</h2>
                     <p className="content">
                     Due to the “unprecedented times” we find ourselves in at the moment I found myself for the first time, in a long time, searching for my next role. While searching across the main job boards I found myself spending increasing amount of time searching through irrelevant	jobs because some of the job board providers do not allow title searches or, their search functionality is not strict enough. 
                     </p>
@@ -36,10 +51,33 @@ const about = (props) => (
                             <li>Statics for application wait times to keep track of chasing / result of applications i.e. Interviews etc.</li>
                         </ol>
                     </div>
-                    <h2 className="title is-4">How Was This Built?</h2>
+                    <h2 className="title is-4">How was this built?</h2>
                     <p className="content">
                         <strong>MERN Stack:</strong> (MongoDB, Express.js, React.js, Node.js) 
                     </p>
+                    <div className="columns is-centered">
+                        <div className="column">
+                            <figure className="image is-128x128">
+                                <img src="https://webassets.mongodb.com/_com_assets/cms/MongoDB_Logo_FullColorBlack_RGB-4td3yuxzjs.png" alt="mongodb" />
+                            </figure>
+                        </div>
+                        <div className="column">
+                            <figure className="image is-128x128">
+                                <img src="https://expressjs.com/images/express-facebook-share.png" alt="node" />
+                            </figure>
+                        </div>
+                        <div className="column">
+                            <figure className="image is-128x128">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="react" />
+                            </figure>
+                        </div>
+                        <div className="column">
+                            <figure className="image is-128x128">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Node.js_logo.svg" alt="node" />
+                            </figure>
+                        </div>
+                    </div>
+                    
                     <p className="content">
                         <strong>GitHub Repos:</strong> 
                     </p>
@@ -49,7 +87,7 @@ const about = (props) => (
                         <a href="https://github.com/athenasbane/JobSeekerFE"> React</a>
                     </p>
                     <p className="content">
-                        <strong>Contact:</strong> enquires@artemis.works 
+                        <strong>Contact:</strong> <a href="mailto:enquires@artemis.works">enquires@artemis.works</a> 
                     </p>
                     <p className="content">
                         I hope you enjoy the site!
