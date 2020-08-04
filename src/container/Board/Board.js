@@ -9,14 +9,23 @@ import { uuid } from 'uuidv4';
 import Header from '../../components/Header/Header';
 import JobDropDown from '../../components/DropDowns/JobDropDown';
 import UserJobsModal from '../../components/Modals/UserJobs';
+import AddJob from '../../components/Modals/AddJob';
 import About from '../../components/Modals/About';
 import SearchError from '../../components/Modals/SearchError';
 import BackDrop from '../../components/DropDowns/BackDrop';
+import NavBar from '../../components/NavBar/NavBar';
 
 class Board extends Component {
     
     state = {
         aboutModalOpen: false,
+        addJobModalOpen: false,
+        addJobTitle: '',
+        addJobCompany: '',
+        addJobLocation: '',
+        addJobStatus: 'saved',
+        addJobLink: '',
+        mobileBannerOpen: true,
         searchId: '',
         searchTitle: '',
         searchLocation: '',
@@ -28,6 +37,7 @@ class Board extends Component {
         userDropDown: false,
         backDropOpen: false,
         userJobsModalOpen: false,
+        heroOpen: true,
         loginOpen: false,
         loginNotRegister: true,
         loginEmail: '',
@@ -51,10 +61,20 @@ class Board extends Component {
     
     }
 
+    // Layout
+
+    heroDeleteButtonHandler = () => {
+        this.setState({ heroOpen: false });
+    }
+
+    mobileBannerDeleteButtonHandler = () => {
+        this.setState({ mobileBannerOpen: false });
+    }
+
     // About
 
     aboutModalOpenHandler = () => {
-        this.setState({ aboutModalOpen: !this.state.aboutModalOpen })
+        this.setState({ aboutModalOpen: !this.state.aboutModalOpen });
     }
 
     // Search Functions
@@ -64,15 +84,15 @@ class Board extends Component {
     }
 
     searchLocationChangeHandler = (e) => {
-        this.setState({ searchLocation: e.target.value })
+        this.setState({ searchLocation: e.target.value });
     }
 
     searchTimeScaleChangeHandler = (e) => {
-        this.setState({ searchTimeScale: e.target.value })
+        this.setState({ searchTimeScale: e.target.value });
     }
 
     searchRadiusChangeHandler = (e) => {
-        this.setState({ searchRadius: e.target.value })
+        this.setState({ searchRadius: e.target.value });
     }
 
     searchSubmitHandler = (e) => {
@@ -96,9 +116,11 @@ class Board extends Component {
             monster: false,
             cvlibrary: false
         }
+
         this.setState({ loading: true, 
             searchErrorModalOpen: false,
             searchError: ''});
+
         axios.post('https://jobseeker-backend.herokuapp.com/jobs', {
             title: this.state.searchTitle,
             location: this.state.searchLocation,
@@ -115,7 +137,7 @@ class Board extends Component {
     }
 
     searchErrorModalOpenHandler = () => {
-        this.setState({ searchErrorModalOpen: !this.state.searchErrorModalOpen })
+        this.setState({ searchErrorModalOpen: !this.state.searchErrorModalOpen });
     }
 
     updateJobsSearch = () => {
@@ -130,8 +152,7 @@ class Board extends Component {
                 return job;
             }) 
             
-
-            this.setState({ jobs: [ ...jobsUpdated ] })
+            this.setState({ jobs: [ ...jobsUpdated ] });
         })
         .catch(e => {
             console.log(e)
@@ -147,16 +168,16 @@ class Board extends Component {
     // Login Handlers
     
     loginModalOpenHandler = () => {
-        const modalState = this.state.loginOpen
-        this.setState({ loginOpen: !modalState })
+        const modalState = this.state.loginOpen;
+        this.setState({ loginOpen: !modalState });
     }
 
     loginEmailChangeHandler = (e) => {
-        this.setState({ loginEmail: e.target.value })
+        this.setState({ loginEmail: e.target.value });
     }
 
     loginPasswordChangeHandler = (e) => {
-        this.setState({ loginPassword: e.target.value })
+        this.setState({ loginPassword: e.target.value });
     }
 
     loginSubmitHandler = (e) => {
@@ -181,10 +202,10 @@ class Board extends Component {
                 loginOpen: false,
                 userAuthed: true,
                 token: response.data.token
-             })
+             });
         })
         .catch(e => {
-            console.log(e)
+            console.log(e);
         });
     }
 
@@ -198,19 +219,19 @@ class Board extends Component {
             user: this.state.user }, 
             {headers: {Authorization: `Bearer ${this.state.token}`}})
         .then(response => {
-            this.setState({ userAuthed: false })
-            localStorage.removeItem('token')
+            this.setState({ userAuthed: false });
+            localStorage.removeItem('token');
         })
         .catch(e => {
-            console.log(e)
+            console.log(e);
         })
     }
 
     // Register Handlers
 
     registerLoginBtnHandler = (e) => {
-        e.preventDefault()
-        this.setState({ loginNotRegister: true })
+        e.preventDefault();
+        this.setState({ loginNotRegister: true });
     }
 
     registerEmailChangeHandler = (e) => {
@@ -233,12 +254,12 @@ class Board extends Component {
 
         if(password !== passwordRepeat) {
             this.setState({ registerError: 'Passwords do not match' });
-            return
+            return;
         }
 
         if(email === '' || password === '' || passwordRepeat === '') {
             this.setState({ registerError: 'Please complete all the fields' });
-            return
+            return;
         } 
 
         axios.post('https://jobseeker-backend.herokuapp.com/users/register', {
@@ -256,7 +277,7 @@ class Board extends Component {
         })
         .catch(error => {
             console.log(error);
-        })
+        });
     }
 
     registerMessageDismissHandler = () => {
@@ -278,11 +299,11 @@ class Board extends Component {
                 userAuthed: true, 
                 user: response.data.user,
                 token: localStorage.getItem('token')
-            })
+            });
     
         })
         .catch(e => {
-            console.log(e)
+            console.log(e);
         })
 
     }
@@ -310,34 +331,70 @@ class Board extends Component {
         axios.get(`https://jobseeker-backend.herokuapp.com/users/jobs${query}`, 
         { headers: {Authorization: `Bearer ${this.state.token}`} })
         .then(response => {
-            this.setState({ savedJobs: response.data })
+            this.setState({ savedJobs: response.data });
         })
         .catch(e => {
-            console.log(e)
+            console.log(e);
         });
 
         this.setState({ userJobsModalOpen: !this.state.userJobsModalOpen });
     }
+
+    // Jobs Handlers
+
+    // Add Job Handlers
+
+    addJobModalOpenHandler = () => {
+        this.setState({ addJobModalOpen: !this.state.addJobModalOpen })
+    }
+
+    addJobTitleChangeHandler = (e) => {
+        this.setState({ addJobTitle: e.target.value })
+    }
+
+    addJobCompanyChangeHandler = (e) => {
+        this.setState({ addJobCompany: e.target.value })
+    }
+
+    addJobLocationChangeHandler = (e) => {
+        this.setState({ addJobLocation: e.target.value })
+    }
+
+    addJobStatusChangeHandler = (e) => {
+        this.setState({ addJobStatus: e.target.value })
+    }
+
+    addJobLinkChangeHandler = (e) => {
+        this.setState({ addJobLink: e.target.value })
+    }
+
+    addJobSubmitHandler = () => {
+        // Add Axios once backend complete
+    }
+
+    // User Jobs 
 
     jobDropDownClickHandler = (index) => {
         const currentJobs = [ ...this.state.jobs];
 
         currentJobs[index]['action'] = !currentJobs[index]['action'];
 
-        this.setState({ jobs: currentJobs, backDropOpen: !this.state.backDropOpen })
+        this.setState({ jobs: currentJobs, backDropOpen: !this.state.backDropOpen });
     }
 
     jobSavedClickHandler = (index) => {
         axios.post('https://jobseeker-backend.herokuapp.com/users/jobs/save', 
         { job: this.state.jobs[index] }, 
         { headers: {Authorization: `Bearer ${this.state.token}`} })
-        .then(response => 
-            this.backDropCloseClickHandler())
+        .then(response => {
+            let currentState = [ ...this.state.jobs ];
+            currentState[index].action = false;
+            this.setState({ jobs: currentState });
+            this.backDropCloseClickHandler()})
         .catch(e => console.log(e));
     }
 
     jobAppliedClickHandler = (index) => {
-        
         const job = this.state.jobs[index];
 
         job.applied = true;
@@ -345,8 +402,11 @@ class Board extends Component {
         axios.post('https://jobseeker-backend.herokuapp.com/users/jobs/save', 
         { job, }, 
         { headers: {Authorization: `Bearer ${this.state.token}`} })
-        .then(response => 
-            this.backDropCloseClickHandler())
+        .then(response => { 
+            let currentState = [ ...this.state.jobs ];
+            currentState[index].action = false;
+            this.setState({ jobs: currentState });
+            this.backDropCloseClickHandler()})
         .catch(e => console.log(e));
         
     }
@@ -363,7 +423,8 @@ class Board extends Component {
         this.setState({ 
             userDropDown: false, 
             backDropOpen: false,
-            })
+
+            });
     }
 
     componentDidMount() {
@@ -448,10 +509,72 @@ class Board extends Component {
         }
 
         return (
-            <div className="is-centered">
-                <Header 
+            <div className="is-centered ml-0 mr-0">
+                <section className={this.state.heroOpen ? "hero is-small is-primary is-bold is-hidden-mobile" : "hero is-small is-primary is-bold is-hidden is-hidden-mobile"}>
+                    <div className="hero-body">
+                        <div className="level">
+                            <div className="level-left">
+                                <div className="level-item has-text-left">
+                                    <h1 className="title">
+                                        Currently in Beta!
+                                    </h1>
+                                </div>
+                            </div>
+                            <div className="level-right">
+                                <div className="level-item">
+                                    <button onClick={this.heroDeleteButtonHandler} 
+                                        className="delete"></button>
+                                </div>
+                            </div>
+                        </div>                        
+                    </div>
+                </section>
+                <NavBar 
                     aboutModalOpenHandler={this.aboutModalOpenHandler}
 
+                    addJobModalOpenHandler={this.addJobModalOpenHandler}
+                    addJobModalOpen={this.state.addJobModalOpen}
+
+                    boards={this.state.boards}
+
+                    userAuthed={this.state.userAuthed}
+                    userDropDownHandler={this.userDropDownHandler}
+                    userDropDown={this.state.userDropDown}
+
+
+                    userJobsModalOpenHandler={this.userJobsModalOpenHandler}
+                    userJobsModalOpen={this.state.userJobsModalOpen}
+
+                    searchSubmitHandler={this.searchSubmitHandler}
+                    searchTitleChangeHandler={this.searchTitleChangeHandler}
+                    searchLocationChangeHandler={this.searchLocationChangeHandler}
+                    searchTimeScaleChangeHandler={this.searchTimeScaleChangeHandler}
+                    searchRadiusChangeHandler={this.searchRadiusChangeHandler}
+                    searchButtonClasses={searchButtonClasses}
+
+                    loginNotRegister={this.state.loginNotRegister}
+
+                    loginModalOpenHandler={this.loginModalOpenHandler}
+                    loginOpen={this.state.loginOpen}
+                    loginEmailChangeHandler={this.loginEmailChangeHandler}
+                    loginPasswordChangeHandler={this.loginPasswordChangeHandler}
+                    loginSubmitHandler={this.loginSubmitHandler}
+                    loginRegisterBtnHandler={this.loginRegisterBtnHandler}
+                    loginError={this.state.loginError}
+
+                    logoutHandler={this.logoutHandler}
+
+                    registerEmailChangeHandler={this.registerEmailChangeHandler}
+                    registerPasswordChangeHandler={this.registerPasswordChangeHandler}
+                    registerPasswordRepeatChangeHandler={this.registerPasswordRepeatChangeHandler}
+                    registerSubmitHandler={this.registerSubmitHandler}
+                    registerLoginBtnHandler={this.registerLoginBtnHandler}
+                    registerError={this.state.registerError}
+                    registerMessageDismissHandler={this.registerMessageDismissHandler}
+                />
+                <Header 
+                    aboutModalOpenHandler={this.aboutModalOpenHandler}
+                    
                     boards={this.state.boards}
 
                     userAuthed={this.state.userAuthed}
@@ -488,16 +611,43 @@ class Board extends Component {
                     registerError={this.state.registerError}
                     registerMessageDismissHandler={this.registerMessageDismissHandler}
                 />
+
                 <UserJobsModal 
+                    addJobModalOpenHandler={this.addJobModalOpenHandler}
                     savedJobs={this.state.savedJobs}
                     userJobsModalOpen={this.state.userJobsModalOpen}
                     userJobsModalOpenHandler={this.userJobsModalOpenHandler}
                 />
+
                 <About 
                     aboutModalOpen={this.state.aboutModalOpen}
                     aboutModalOpenHandler={this.aboutModalOpenHandler}
                 
                 />
+
+                <AddJob 
+                    addJobModalOpenHandler={this.addJobModalOpenHandler}
+                    addJobModalOpen={this.state.addJobModalOpen}
+                    addJobSubmitHandler={this.addJobSubmitHandler}
+
+                    addJobTitleChangeHandler={this.addJobTitleChangeHandler}
+                    addJobTitle={this.state.addJobTitle}
+
+                    addJobCompanyChangeHandler={this.addJobCompanyChangeHandler}
+                    addJobCompany={this.state.addJobCompany}
+
+                    addJobLocationChangeHandler={this.addJobLocationChangeHandler}
+                    addJobLocation={this.state.addJobLocation}
+
+                    addJobStatusChangeHandler={this.addJobStatusChangeHandler}
+                    addJobStatus={this.state.addJobStatus}
+
+                    addJobLinkChangeHandler={this.addJobLinkChangeHandler}
+                    addJobLink={this.state.addJobLink}
+
+
+                />
+
                 <SearchError 
                     searchErrorModalOpen={this.state.searchErrorModalOpen}
                     searchErrorModalOpenHandler={this.searchErrorModalOpenHandler}
@@ -509,7 +659,13 @@ class Board extends Component {
                     backDropOpen={this.state.backDropOpen}
                 /> 
 
-                <div style={{ width: "100%" }} className="box is-centered">
+                <div className={this.state.mobileBannerOpen ? "notification is-info is-hidden-desktop" : "notification is-info is-hidden"}>
+                <button onClick={this.mobileBannerDeleteButtonHandler} className="delete"></button>
+                    <strong>Just a warning!</strong> Job Seeker's functionality is limited due to space on smaller screens. 
+                    You can request the full site or access on your desktop to get the full experience.
+                </div>
+
+                <div style={{ width: "100%" }} className="box is-centered mt-4">
                     <div style={{ width: "100%" }} className="table-container">
                         <table className="table is-narrow" style={{ width: "100%", marginBottom: "100px" }}>
                             <thead>

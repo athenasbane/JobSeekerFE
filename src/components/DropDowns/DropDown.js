@@ -17,6 +17,9 @@ const dropDown = (props) => (
         </div>
         <div className="dropdown-menu" id="dropdown-menu" role="menu">
             <div className="dropdown-content">
+                <button onClick={props.addJobModalOpenHandler} style={{border: "none"}} className="button dropdown-item">
+                    Add Job
+                </button>
                 <button onClick={() => props.userJobsModalOpenHandler('')} style={{border: "none"}} className="button dropdown-item">
                     Saved/Applied Jobs
                 </button>
