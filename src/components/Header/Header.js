@@ -19,6 +19,7 @@ const Header = (props) => (
                                 className="input is-primary" 
                                 onChange={(e) => props.searchTitleChangeHandler(e)} 
                                 placeholder="Title Search"
+                                value={props.searchTitle}
                             />
                         </div>
                         <div className="control">
@@ -26,27 +27,31 @@ const Header = (props) => (
                                 type="text" 
                                 className="input is-primary" 
                                 onChange={(e) => props.searchLocationChangeHandler(e)}  
-                                placeholder="Location Search"/>
+                                placeholder="Location Search"
+                                value={props.searchLocation}
+                                />
                         </div>
                         <div className="field is-grouped">
                             <div className="select is-primary">
                                 <select 
+                                    value={props.searchTimeScale}
                                     onChange={(e) => props.searchTimeScaleChangeHandler(e)}>
-                                    <option>1 Day</option>
-                                    <option>3 Days</option>
-                                    <option>1 Week</option>
-                                    <option>2 Weeks</option>
-                                    <option>4 Weeks</option>
+                                    <option value="1 Day">1 Day</option>
+                                    <option value="3 Days">3 Days</option>
+                                    <option value="1 Week">1 Week</option>
+                                    <option value="2 Weeks">2 Weeks</option>
+                                    <option value="4 Weeks">4 Weeks</option>
                                 </select>
                             </div>
                             <div className="select is-primary">
                                 <select 
+                                    value={props.searchRadius}
                                     onChange={(e) => props.searchRadiusChangeHandler(e)}>
-                                    <option>1 Mile</option>
-                                    <option>5 Miles</option>
-                                    <option>10 Miles</option>
-                                    <option>15 Miles</option>
-                                    <option>20 Miles</option>
+                                    <option value="1 Mile">1 Mile</option>
+                                    <option value="5 Miles">5 Miles</option>
+                                    <option value="10 Miles">10 Miles</option>
+                                    <option value="15 Miles">15 Miles</option>
+                                    <option value="20 Miles">20 Miles</option>
                                 </select>
                             </div>
                             <button 

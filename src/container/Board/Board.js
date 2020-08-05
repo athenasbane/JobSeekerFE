@@ -93,11 +93,15 @@ class Board extends Component {
     }
 
     searchTimeScaleChangeHandler = (e) => {
+        console.log(this.state.searchTimeScale)
         this.setState({ searchTimeScale: e.target.value });
+        
     }
 
     searchRadiusChangeHandler = (e) => {
+        console.log(this.state.searchRadius)
         this.setState({ searchRadius: e.target.value });
+        
     }
 
     searchSubmitHandler = (e) => {
@@ -130,7 +134,7 @@ class Board extends Component {
             title: this.state.searchTitle,
             location: this.state.searchLocation,
             radius: this.state.searchRadius,
-            searchTimeScale: this.state.searchTimeScale
+            timeScale: this.state.searchTimeScale
         }).then(response => {
             this.setState({  
                 searchId: response.data.id,
@@ -590,10 +594,19 @@ class Board extends Component {
                     userJobsModalOpen={this.state.userJobsModalOpen}
 
                     searchSubmitHandler={this.searchSubmitHandler}
+
                     searchTitleChangeHandler={this.searchTitleChangeHandler}
+                    searchTitle={this.state.searchTitle}
+
                     searchLocationChangeHandler={this.searchLocationChangeHandler}
+                    searchLocation={this.state.searchLocation}
+                    
                     searchTimeScaleChangeHandler={this.searchTimeScaleChangeHandler}
+                    searchTimeScale={this.state.searchTimeScale}
+
                     searchRadiusChangeHandler={this.searchRadiusChangeHandler}
+                    searchRadius={this.state.searchRadius}
+
                     searchButtonClasses={searchButtonClasses}
 
                     loginNotRegister={this.state.loginNotRegister}
