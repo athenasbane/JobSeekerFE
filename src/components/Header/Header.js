@@ -5,8 +5,8 @@ import Register from '../LoginRegister/Register/Register';
 import BoardTicks from '../BoardTicks/BoardTicks';
 
 const Header = (props) => (
-    <header className="is-centered mb-2  ml-0-mobile mr-0-mobile">
-        <div className="columns ml-0-mobile mr-0-mobile">
+    <header className="is-centered mb-1  ml-0-mobile mr-0-mobile">
+        <div className="columns is-1 is-variable ml-0-mobile mr-0-mobile">
             <div className="column is-three-fifths ml-0 mr-0">
                 <div className="box ml-0-mobile mr-0-mobile" style={{height: "100%"}}>
                     <form 

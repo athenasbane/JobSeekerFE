@@ -6,10 +6,10 @@ import logo from '../../assets/img/logo.png';
 const navBar = (props) => (
     <nav className="navbar is-light mb-3" role="navigation" aria-label="main navigation">
         <div className="navbar-start">
-            <div className="columns multiline is-mobile mt-1">
+            <div className="columns multiline is-mobile is-vcentered mt-1">
                 <div className="column is-3">
-                    <figure style={{justifyContent: "center"}} className="image is-centered is-96x96">
-                        <img className="mb-3" src={logo} alt="logo" />
+                    <figure className="image is-centered is-96x96">
+                        <img className="mb-5" src={logo} alt="logo" />
                     </figure>
                 </div>
                 <div className="column">

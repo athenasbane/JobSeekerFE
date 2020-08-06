@@ -23,15 +23,17 @@ class Board extends Component {
         addJobTitle: '',
         addJobCompany: '',
         addJobLocation: '',
+        addJobSource: '',
         addJobStatus: 'saved',
         addJobLink: '',
+        addJobAppliedDate: '',
         mobileBannerOpen: true,
         featureBannerOpen: true,
         searchId: '',
         searchTitle: '',
         searchLocation: '',
-        searchTimeScale: '',
-        searchRadius: '',
+        searchTimeScale: '1 Day',
+        searchRadius: '1 Mile',
         searchErrorModalOpen: false,
         searchError: '',
         userAuthed: false,
@@ -354,31 +356,67 @@ class Board extends Component {
     // Add Job Handlers
 
     addJobModalOpenHandler = () => {
-        this.setState({ addJobModalOpen: !this.state.addJobModalOpen })
+        this.setState({ addJobModalOpen: !this.state.addJobModalOpen });
     }
 
     addJobTitleChangeHandler = (e) => {
-        this.setState({ addJobTitle: e.target.value })
+        this.setState({ addJobTitle: e.target.value });
     }
 
     addJobCompanyChangeHandler = (e) => {
-        this.setState({ addJobCompany: e.target.value })
+        this.setState({ addJobCompany: e.target.value });
     }
 
     addJobLocationChangeHandler = (e) => {
-        this.setState({ addJobLocation: e.target.value })
+        this.setState({ addJobLocation: e.target.value });
     }
 
     addJobStatusChangeHandler = (e) => {
-        this.setState({ addJobStatus: e.target.value })
+        this.setState({ addJobStatus: e.target.value });
+    }
+
+    addJobAppliedDateChangeHandler = (e) => {
+        this.setState({ addJobAppliedDate: e.target.value });
     }
 
     addJobLinkChangeHandler = (e) => {
-        this.setState({ addJobLink: e.target.value })
+        this.setState({ addJobLink: e.target.value });
     }
 
-    addJobSubmitHandler = () => {
-        // Add Axios once backend complete
+    addJobSourceChangeHandler = (e) => {
+        this.setState({ addJobSource: e.target.value })
+    }
+
+    addJobSubmitHandler = (e) => {
+        e.preventDefault()
+
+        const job = {
+            title: this.state.addJobTitle,
+            company: this.state.addJobCompany,
+            location: this.state.addJobLocation,
+            source: this.state.addJobSource,
+            link: this.state.addJobLink,
+            applied: this.state.addJobStatus === 'applied' ? true : false,
+            date: this.state.addJobStatus === 'applied' ? this.state.addJobAppliedDate : null
+        }
+
+        axios.post('https://jobseeker-backend.herokuapp.com/users/jobs/add', 
+        { job, }, 
+        { headers: {Authorization: `Bearer ${this.state.token}`} })
+        .then(response => { 
+            this.setState({ addJobModalOpen: false,
+                            addJobTitle: '',
+                            addJobCompany: '',
+                            addJobLocation: '',
+                            addJobSource: '',
+                            addJobStatus: 'saved',
+                            addJobLink: '',
+                            addJobAppliedDate: ''
+
+        });
+        })
+        .catch(e => console.log(e));
+
     }
 
     // User Jobs 
@@ -660,8 +698,14 @@ class Board extends Component {
                     addJobStatusChangeHandler={this.addJobStatusChangeHandler}
                     addJobStatus={this.state.addJobStatus}
 
+                    addJobAppliedDateChangeHandler={this.addJobAppliedDateChangeHandler}
+                    addJobAppliedDate={this.state.addJobAppliedDate}
+
                     addJobLinkChangeHandler={this.addJobLinkChangeHandler}
                     addJobLink={this.state.addJobLink}
+
+                    addJobSourceChangeHandler={this.addJobSourceChangeHandler}
+                    addJobSource={this.state.addJobSource}
 
                     featureBannerDeleteHandler={this.featureBannerDeleteHandler}
                     featureBannerOpen={this.state.featureBannerOpen}
@@ -685,7 +729,7 @@ class Board extends Component {
                     You can request the full site or access on your desktop to get the full experience.
                 </div>
 
-                <div style={{ width: "100%" }} className="box is-centered mt-4">
+                <div style={{ width: "100%" }} className="box is-centered mt-2">
                     <div style={{ width: "100%" }} className="table-container">
                         <table className="table is-narrow" style={{ width: "100%", marginBottom: "100px" }}>
                             <thead>

@@ -53,7 +53,11 @@ const addJob = (props) => (
                         <div className={props.addJobStatus === "applied" ? "field mt-2" : "is-hidden"}>
                             <label className="label">Date Applied</label>
                             <div className="control">
-                                <input className="input" type="date" />
+                                <input
+                                    onChange={props.addJobAppliedDateChangeHandler} 
+                                    className="input" 
+                                    type="date" 
+                                    value={props.addJobAppliedDate}/>
                             </div>
                         </div>
                         <input 
@@ -64,6 +68,13 @@ const addJob = (props) => (
                             value={props.addJobLink}
                             
                             />
+                        <input
+                            onChange={(event) => props.addJobSourceChangeHandler(event)}
+                            className={props.addJobSource !== '' ? "input" : "input is-danger"}
+                            type="text"
+                            placeholder="Source"
+                            value={props.addJobSource}
+                        />
                         <input 
                             className="button mt-3 is-primary" 
                             type="submit" 
