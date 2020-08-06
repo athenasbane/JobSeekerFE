@@ -55,24 +55,24 @@ const about = (props) => (
                     <p className="content">
                         <strong>MERN Stack:</strong> (MongoDB, Express.js, React.js, Node.js) 
                     </p>
-                    <div className="columns is-centered">
-                        <div className="column">
-                            <figure className="image is-128x128">
+                    <div className="columns">
+                        <div className="column has-text-centered-mobile">
+                            <figure className="image is-128x128 is-inline-block">
                                 <img src="https://webassets.mongodb.com/_com_assets/cms/MongoDB_Logo_FullColorBlack_RGB-4td3yuxzjs.png" alt="mongodb" />
                             </figure>
                         </div>
-                        <div className="column">
-                            <figure className="image is-128x128">
+                        <div className="column has-text-centered-mobile">
+                            <figure className="image is-128x128 is-inline-block">
                                 <img src="https://expressjs.com/images/express-facebook-share.png" alt="node" />
                             </figure>
                         </div>
-                        <div className="column">
-                            <figure className="image is-128x128">
+                        <div className="column has-text-centered-mobile">
+                            <figure className="image is-128x128 is-inline-block">
                                 <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="react" />
                             </figure>
                         </div>
-                        <div className="column">
-                            <figure className="image is-128x128">
+                        <div className="column has-text-centered-mobile">
+                            <figure className="image is-128x128 is-inline-block">
                                 <img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Node.js_logo.svg" alt="node" />
                             </figure>
                         </div>

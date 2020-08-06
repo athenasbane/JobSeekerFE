@@ -115,12 +115,6 @@ class Board extends Component {
             return;
         }
 
-        if(this.state.searchTitle.includes(' ') || this.state.searchLocation.includes(' ')) {
-            this.setState({ searchError: 'The search function only supports single words for now', 
-            searchErrorModalOpen: !this.state.searchErrorModalOpen });
-            return;
-        }
-
         const boardReset = {
             indeed: false,
             reed: false,
