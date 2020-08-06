@@ -45,7 +45,8 @@ const about = (props) => (
                     <div className="content">
                         <ol type="1">
                             <li>Daily/weekly email reports for jobs from saved searches.</li>
-                            <li>Adding custom jobs.</li>
+                            <li><s>Adding custom jobs</s> - delivered 08/2020</li>
+                            <li><s>Adding Multi-word Searches</s> - delivered 08/2020 - Suggested by Sam</li>
                             <li>Additional job boards to be added.</li>
                             <li>Chrome extension for adding job boards and maybe even auto tracking applications (no promises).</li>
                             <li>Statics for application wait times to keep track of chasing / result of applications i.e. Interviews etc.</li>
